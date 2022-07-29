@@ -1,0 +1,10 @@
+#container {
+  display: grid;
+  grid-template-columns: 2;
+  grid-template-rows: 2;
+}
+
+#nav {
+  background-color: red;
+  color: black;
+}
