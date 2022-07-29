@@ -1,0 +1,29 @@
+{
+  "name": "todo-list",
+  "version": "1.0.0",
+  "description": "Todo List project for TOP",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm dist/bundle.js",
+    "build-dev": "webpack --mode development",
+    "build-prod": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marrahenzo/todo-list.git"
+  },
+  "author": "Hernán Marrapodi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marrahenzo/todo-list/issues"
+  },
+  "homepage": "https://github.com/marrahenzo/todo-list#readme",
+  "devDependencies": {
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "css-loader": "^6.7.1",
+    "style-loader": "^3.3.1",
+    "url-loader": "^4.1.1"
+  }
+}
