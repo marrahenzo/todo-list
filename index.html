@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Todo List</title>
-    <script src="./dist/main.js"></script>
+    <script defer src="./dist/main.js"></script>
   </head>
   <body>
     <div id="main-container">
@@ -19,14 +19,17 @@
         />
       </div>
       <div id="sidebar">
-        <button type="button" id="btn-new-list">+</button>
-        <div id="project1" class="project">MAIN</div>
-        <div id="project2" class="project">PROJECT 2</div>
-        <div id="project3" class="project">PROJECT 3</div>
+        <button type="button" id="btn-new-project">New Project</button>
+        <div id="projects-container">
+          <div id="project1" class="project">MAIN</div>
+        </div>
         <div id="done">DONE</div>
       </div>
       <div id="main">
-        <h2>LIST NAME</h2>
+        <div id="list-title-add-container">
+          <h2 id="list-name">LIST NAME</h2>
+          <button type="button" id="btn-new-task">New Task</button>
+        </div>
         <div id="tasks">
           <div id="task1" class="task">TASK 1</div>
           <div id="task2" class="task">TASK 2</div>
