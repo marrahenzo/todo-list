@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Todo List project for The Odin Project's full stack Javascript course",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "start": "webpack"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/marrahenzo/todo-list.git"
