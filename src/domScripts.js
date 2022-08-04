@@ -1,11 +1,3 @@
-function addChild(element, child) {
-  element.appendChild(child);
-}
-
-function addChildren(element, ...children) {
-  element.append(...children);
-}
-
 function addProject(list, project, id) {
   let projectElement = document.createElement('a');
   projectElement.href = '#';
@@ -20,7 +12,7 @@ function addProject(list, project, id) {
     loadTasks(list, project);
   });
 
-  addChild(list, projectElement);
+  list.append(projectElement);
 }
 
 function loadProjects(list, projects) {
@@ -31,17 +23,74 @@ function loadProjects(list, projects) {
 
 function addTask(list, project, task) {
   let taskElement = document.createElement('div');
-  taskElement.textContent = task.name;
   taskElement.className = 'task';
   taskElement.id = 'task' + project.tasks.length;
 
-  addChild(list, taskElement);
+  let taskName = document.createElement('p');
+  taskName.className = 'task-name';
+  taskName.textContent = task.name;
+
+  let taskDescription = document.createElement('p');
+  taskDescription.className = 'task-description';
+  taskDescription.textContent = task.description;
+
+  let taskDate = document.createElement('p');
+  taskDate.className = 'task-date';
+  taskDate.textContent = task.dueDate;
+
+  let taskPriority = document.createElement('p');
+  taskPriority.className = 'task-priority';
+  taskPriority.textContent = task.priority;
+
+  let taskEditButton = document.createElement('a');
+  taskEditButton.className = 'task-edit';
+
+  let taskEditButtonImage = document.createElement('img');
+  taskEditButtonImage.src = './src/media/edit.svg';
+  taskEditButton.append(taskEditButtonImage);
+
+  let taskDeleteButton = document.createElement('a');
+  taskDeleteButton.className = 'task-delete';
+
+  let taskDeleteButtonImage = document.createElement('img');
+  taskDeleteButtonImage.src = './src/media/delete.svg';
+  taskDeleteButton.append(taskDeleteButtonImage);
+
+  let taskCheckBox = document.createElement('input');
+  taskCheckBox.type = 'checkbox';
+
+  taskDeleteButton.addEventListener('click', () => {
+    deleteTask(project, task, taskElement);
+  });
+
+  taskCheckBox.addEventListener('click', () => {
+    taskElement.classList.toggle('done');
+    task.toggleDone();
+  });
+
+  taskElement.append(
+    taskCheckBox,
+    taskName,
+    taskDescription,
+    taskDate,
+    taskPriority,
+    taskEditButton,
+    taskDeleteButton
+  );
+  list.append(taskElement);
 }
 
 function loadTasks(list, project) {
   for (let task of project.tasks) {
     addTask(list, project, task);
   }
+}
+
+function deleteTask(project, task, node) {
+  let index = project.findTask(task);
+  project.tasks.splice(index, 1);
+  node.remove();
+  console.log(project.tasks);
 }
 
 function getCurrentProject(projects, name) {
