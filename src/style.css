@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  height: 100%;
 }
 
 #main-container {
@@ -53,7 +54,14 @@ body {
   align-self: flex-end;
 }
 
+#projects-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .project {
+  text-decoration: none;
+  color: black;
   margin-bottom: 5px;
 }
 
