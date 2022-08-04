@@ -1,5 +1,11 @@
 import './style.css';
-import { addChild } from './domScripts';
+import {
+  addProject,
+  addTask,
+  loadProjects,
+  loadTasks,
+  getCurrentProject,
+} from './domScripts';
 
 class Task {
   done = false;
@@ -45,18 +51,31 @@ class Project {
   }
 }
 
-const Priorities = Object.freeze({
+const Priority = Object.freeze({
   High: 'High',
   Medium: 'Medium',
   Low: 'Low',
 });
 
-let projects = [new Project('Main')];
+let projects = [];
+
+//TODO: Remove later
+projects.push(new Project('Main'));
+let testTask = new Task('test', 'test', '1-1-1001', Priority.Medium);
+projects[0].addTask(testTask);
+//
+
+const projectList = document.querySelector('#projects-container');
+loadProjects(projectList, projects);
+
+const taskList = document.querySelector('#tasks-container');
+loadTasks(taskList, projects[0]);
 
 let newProjectButton = document.querySelector('#btn-new-project');
 let newTaskButton = document.querySelector('#btn-new-task');
 
-console.log(newProjectButton);
+//If clicked, prompts for a name input, creates a new project
+// and appends it to the dom
 
 newProjectButton.addEventListener('click', () => {
   let newProject = new Project(
@@ -64,15 +83,22 @@ newProjectButton.addEventListener('click', () => {
   );
   projects.push(newProject);
 
-  let projectList = document.querySelector('#projects-container');
-  let projectElement = document.createElement('div');
-  projectElement.textContent = newProject.name;
-  projectElement.className = 'project';
-  projectElement.id = 'project' + projects.length;
-
-  addChild(projectList, projectElement);
+  addProject(projectList, newProject, projects.length);
 });
 
+//If clicked, creates a new task and appends it to the dom
+
+newTaskButton.addEventListener('click', () => {
+  let projectName = document.querySelector('#project-name').textContent;
+
+  let newTask = new Task('test', 'test', '1-1-1001', Priority.Medium);
+  projects.push(newTask);
+
+  addTask(taskList, getCurrentProject(projects, projectName), newTask);
+});
+
+//TODO: Remove later
 let project1 = new Project('test');
-let task1 = new Task('test', 'this is a test', '2022-1-1', Priorities.High);
+let task1 = new Task('test', 'this is a test', '2022-1-1', Priority.High);
 project1.addTask(task1);
+//
