@@ -17,8 +17,8 @@ class Task {
     this.priority = priority;
   }
 
-  markDone() {
-    this.done = true;
+  toggleDone() {
+    this.done = !this.done;
   }
 }
 
@@ -86,19 +86,14 @@ newProjectButton.addEventListener('click', () => {
   addProject(projectList, newProject, projects.length);
 });
 
-//If clicked, creates a new task and appends it to the dom
+//If clicked, creates a new (dummy) task and appends it to the dom
 
 newTaskButton.addEventListener('click', () => {
   let projectName = document.querySelector('#project-name').textContent;
+  let currentProject = getCurrentProject(projects, projectName);
 
   let newTask = new Task('test', 'test', '1-1-1001', Priority.Medium);
-  projects.push(newTask);
+  currentProject.tasks.push(newTask);
 
-  addTask(taskList, getCurrentProject(projects, projectName), newTask);
+  addTask(taskList, currentProject, newTask);
 });
-
-//TODO: Remove later
-let project1 = new Project('test');
-let task1 = new Task('test', 'this is a test', '2022-1-1', Priority.High);
-project1.addTask(task1);
-//
