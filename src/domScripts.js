@@ -7,10 +7,18 @@ function addChildren(element, ...children) {
 }
 
 function addProject(list, project, id) {
-  let projectElement = document.createElement('div');
+  let projectElement = document.createElement('a');
+  projectElement.href = '#';
   projectElement.textContent = project.name;
   projectElement.className = 'project';
   projectElement.id = 'project' + id;
+
+  projectElement.addEventListener('click', () => {
+    document.querySelector('#project-name').textContent = project.name;
+    let list = document.querySelector('#tasks-container');
+    list.textContent = '';
+    loadTasks(list, project);
+  });
 
   addChild(list, projectElement);
 }
