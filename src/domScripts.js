@@ -38,9 +38,13 @@ function addTask(list, project, task) {
   taskDate.className = 'task-date';
   taskDate.textContent = task.dueDate;
 
+  /*TODO: Delete if unneeded
   let taskPriority = document.createElement('p');
   taskPriority.className = 'task-priority';
   taskPriority.textContent = task.priority;
+  */
+
+  taskElement.dataset.priority = task.priority;
 
   let taskEditButton = document.createElement('a');
   taskEditButton.className = 'task-edit';
@@ -57,6 +61,7 @@ function addTask(list, project, task) {
   taskDeleteButton.append(taskDeleteButtonImage);
 
   let taskCheckBox = document.createElement('input');
+  taskCheckBox.className = 'task-checkbox';
   taskCheckBox.type = 'checkbox';
 
   taskDeleteButton.addEventListener('click', () => {
@@ -73,7 +78,7 @@ function addTask(list, project, task) {
     taskName,
     taskDescription,
     taskDate,
-    taskPriority,
+    //taskPriority,
     taskEditButton,
     taskDeleteButton
   );
@@ -90,7 +95,6 @@ function deleteTask(project, task, node) {
   let index = project.findTask(task);
   project.tasks.splice(index, 1);
   node.remove();
-  console.log(project.tasks);
 }
 
 function getCurrentProject(projects, name) {
