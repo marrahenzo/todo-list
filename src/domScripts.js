@@ -64,6 +64,11 @@ function addTask(list, project, task) {
   taskCheckBox.className = 'task-checkbox';
   taskCheckBox.type = 'checkbox';
 
+  if (task.done) {
+    taskCheckBox.checked = true;
+    taskElement.classList.add('done');
+  }
+
   taskDeleteButton.addEventListener('click', () => {
     deleteTask(project, task, taskElement);
   });
