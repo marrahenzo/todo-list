@@ -36,4 +36,10 @@ function loadTasks(list, project) {
   }
 }
 
-export { addChild, addChildren, addProject, addTask, loadProjects, loadTasks };
+function getCurrentProject(projects, name) {
+  for (let project of projects) {
+    if (project.name === name) return project;
+  }
+}
+
+export { addProject, addTask, loadProjects, loadTasks, getCurrentProject };
