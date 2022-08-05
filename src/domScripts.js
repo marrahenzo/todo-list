@@ -52,6 +52,7 @@ function addTask(list, project, task) {
 
   let taskEditButton = document.createElement('a');
   taskEditButton.className = 'task-edit';
+  taskEditButton.id = project.tasks.length;
 
   let taskEditButtonImage = document.createElement('img');
   taskEditButtonImage.src = './src/media/edit.svg';
@@ -80,12 +81,16 @@ function addTask(list, project, task) {
     task.toggleDone();
   });
 
-  taskDeleteButton.addEventListener('click', () => {
-    deleteTask(project, task, taskElement);
-  });
-
   taskInfoButton.addEventListener('click', () => {
     displayInfoModal(task);
+  });
+
+  taskEditButton.addEventListener('click', () => {
+    displayEditModal(task);
+  });
+
+  taskDeleteButton.addEventListener('click', () => {
+    deleteTask(project, task, taskElement);
   });
 
   taskElement.append(
@@ -139,6 +144,22 @@ function displayInfoModal(task) {
   description.textContent = task.description;
   dueDate.textContent = 'Due: ' + task.dueDate;
   priority.textContent = 'Priority: ' + task.priority;
+  modal.classList.add('show');
+
+  closeButton.addEventListener('click', () => {
+    closeModal(modal);
+  });
+}
+
+function displayEditModal(task) {
+  let modal = document.querySelector('.modal-edit-container');
+  let closeButton = document.querySelectorAll('.modal-close')[1];
+  closeButton.id = JSON.stringify(task);
+  document.querySelector('#edit-title').value = task.name;
+  document.querySelector('#edit-description').value = task.description;
+  document.querySelector('#edit-due-date').value = task.dueDate;
+  document.querySelector('#edit-priority').value = task.priority;
+
   modal.classList.add('show');
 
   closeButton.addEventListener('click', () => {
