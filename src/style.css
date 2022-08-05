@@ -88,6 +88,12 @@ body {
   height: 20px;
 }
 
+#project-name.hidden,
+#btn-new-task.hidden {
+  display: none;
+  pointer-events: none;
+}
+
 .task {
   display: flex;
   gap: 20px;
