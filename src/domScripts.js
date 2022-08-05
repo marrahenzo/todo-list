@@ -30,21 +30,16 @@ function addTask(list, project, task) {
   taskName.className = 'task-name';
   taskName.textContent = task.name;
 
-  let taskDescription = document.createElement('p');
-  taskDescription.className = 'task-description';
-  taskDescription.textContent = task.description;
-
   let taskDate = document.createElement('p');
   taskDate.className = 'task-date';
   taskDate.textContent = task.dueDate;
 
-  /*TODO: Delete if unneeded
-  let taskPriority = document.createElement('p');
-  taskPriority.className = 'task-priority';
-  taskPriority.textContent = task.priority;
-  */
+  let taskInfoButton = document.createElement('a');
+  taskInfoButton.className = 'task-info';
 
-  taskElement.dataset.priority = task.priority;
+  let taskInfoImage = document.createElement('img');
+  taskInfoImage.src = './src/media/info.svg';
+  taskInfoButton.append(taskInfoImage);
 
   let taskEditButton = document.createElement('a');
   taskEditButton.className = 'task-edit';
@@ -69,21 +64,26 @@ function addTask(list, project, task) {
     taskElement.classList.add('done');
   }
 
-  taskDeleteButton.addEventListener('click', () => {
-    deleteTask(project, task, taskElement);
-  });
+  taskElement.dataset.priority = task.priority;
 
   taskCheckBox.addEventListener('click', () => {
     taskElement.classList.toggle('done');
     task.toggleDone();
   });
 
+  taskDeleteButton.addEventListener('click', () => {
+    deleteTask(project, task, taskElement);
+  });
+
+  taskInfoButton.addEventListener('click', () => {
+    displayInfoModal(task);
+  });
+
   taskElement.append(
     taskCheckBox,
     taskName,
-    taskDescription,
     taskDate,
-    //taskPriority,
+    taskInfoButton,
     taskEditButton,
     taskDeleteButton
   );
@@ -100,12 +100,33 @@ function deleteTask(project, task, node) {
   let index = project.findTask(task);
   project.tasks.splice(index, 1);
   node.remove();
+  //TODO: implement project deletion if the deleted task is the
+  //  last one on the project
 }
 
 function getCurrentProject(projects, name) {
   for (let project of projects) {
     if (project.name === name) return project;
   }
+}
+
+function displayInfoModal(task) {
+  let modal = document.querySelector('.modal-info-container');
+  let title = document.querySelector('#info-title');
+  let description = document.querySelector('#info-description');
+  let dueDate = document.querySelector('#info-due-date');
+  let priority = document.querySelector('#info-priority');
+  let closeButton = document.querySelector('.modal-close');
+
+  title.textContent = task.name;
+  description.textContent = task.description;
+  dueDate.textContent = task.dueDate;
+  priority.textContent = task.priority;
+  modal.classList.add('show');
+
+  closeButton.addEventListener('click', () => {
+    modal.classList.remove('show');
+  });
 }
 
 export { addProject, addTask, loadProjects, loadTasks, getCurrentProject };
