@@ -1,3 +1,5 @@
+import { deleteProject } from './index';
+
 function addProject(list, project, id) {
   let projectElement = document.createElement('a');
   projectElement.href = '#';
@@ -102,6 +104,12 @@ function deleteTask(project, task, node) {
   node.remove();
   //TODO: implement project deletion if the deleted task is the
   //  last one on the project
+  if (project.tasks.length === 0) {
+    document.querySelectorAll('.project').forEach((element) => {
+      if (element.textContent === project.name) element.remove();
+    });
+    deleteProject(project);
+  }
 }
 
 function getCurrentProject(projects, name) {
@@ -116,17 +124,40 @@ function displayInfoModal(task) {
   let description = document.querySelector('#info-description');
   let dueDate = document.querySelector('#info-due-date');
   let priority = document.querySelector('#info-priority');
-  let closeButton = document.querySelector('.modal-close');
+  let closeButton = document.querySelectorAll('.modal-close')[0];
 
   title.textContent = task.name;
   description.textContent = task.description;
-  dueDate.textContent = task.dueDate;
-  priority.textContent = task.priority;
+  dueDate.textContent = 'Due: ' + task.dueDate;
+  priority.textContent = 'Priority: ' + task.priority;
   modal.classList.add('show');
 
   closeButton.addEventListener('click', () => {
-    modal.classList.remove('show');
+    closeModal(modal);
   });
 }
 
-export { addProject, addTask, loadProjects, loadTasks, getCurrentProject };
+function displayCreateModal() {
+  let modal = document.querySelector('.modal-create-container');
+  let closeButton = document.querySelectorAll('.modal-close')[2];
+
+  modal.classList.add('show');
+
+  closeButton.addEventListener('click', () => {
+    closeModal(modal);
+  });
+}
+
+function closeModal(modal) {
+  modal.classList.remove('show');
+}
+
+export {
+  addProject,
+  addTask,
+  loadProjects,
+  loadTasks,
+  getCurrentProject,
+  displayCreateModal,
+  closeModal,
+};
