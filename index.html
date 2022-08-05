@@ -42,20 +42,35 @@
     </div>
     <div class="modal-edit-container">
       <div class="modal-edit">
-        <h1 id="edit-title">Test</h1>
-        <p id="edit-description">Description</p>
-        <p id="edit-due-date">Due: (date)</p>
-        <p id="edit-priority">Priority: (L/M/H)</p>
-        <button type="button" class="modal-close">Close</button>
+        <form action="#" method="post">
+          <h1 id="edit-title">Test</h1>
+          <p id="edit-description">Description</p>
+          <p id="edit-due-date">Due: (date)</p>
+          <p id="edit-priority">Priority: (L/M/H)</p>
+          <button type="button" class="modal-close">Close</button>
+          <button type="button" class="modal-submit">Submit</button>
+        </form>
       </div>
     </div>
     <div class="modal-create-container">
       <div class="modal-create">
-        <h1 id="create-title">Test</h1>
-        <p id="create-description">Description</p>
-        <p id="create-due-date">Due: (date)</p>
-        <p id="create-priority">Priority: (L/M/H)</p>
-        <button type="button" class="modal-close">Close</button>
+        <form action="#" method="post">
+          <h1>New Task</h1>
+          <label for="create-title">Title: </label>
+          <input name="title" type="text" id="create-title" />
+          <label for="create-description">Description: </label>
+          <input name="title" type="text" id="create-description" />
+          <label for="create-due-date">Due: </label>
+          <input name="title" type="date" id="create-due-date" />
+          <label for="create-priority">Priority: </label>
+          <select name="title" id="create-priority">
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
+          <button type="button" class="modal-close">Close</button>
+          <button type="button" class="modal-submit">Submit</button>
+        </form>
       </div>
     </div>
   </body>
