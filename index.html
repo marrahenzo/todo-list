@@ -43,10 +43,19 @@
     <div class="modal-edit-container">
       <div class="modal-edit">
         <form action="#" method="post">
-          <h1 id="edit-title">Test</h1>
-          <p id="edit-description">Description</p>
-          <p id="edit-due-date">Due: (date)</p>
-          <p id="edit-priority">Priority: (L/M/H)</p>
+          <h1>Edit Task</h1>
+          <label for="edit-title">Title: </label>
+          <input name="title" type="text" id="edit-title" />
+          <label for="edit-description">Description: </label>
+          <input name="title" type="text" id="edit-description" />
+          <label for="edit-due-date">Due: </label>
+          <input name="title" type="date" id="edit-due-date" />
+          <label for="edit-priority">Priority: </label>
+          <select name="title" id="edit-priority">
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
           <button type="button" class="modal-close">Close</button>
           <button type="button" class="modal-submit">Submit</button>
         </form>
