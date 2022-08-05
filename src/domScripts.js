@@ -8,9 +8,16 @@ function addProject(list, project, id) {
   projectElement.id = 'project' + id;
 
   projectElement.addEventListener('click', () => {
-    document.querySelector('#project-name').textContent = project.name;
+    let projectNameTitle = document.querySelector('#project-name');
+    projectNameTitle.textContent = project.name;
+
     let list = document.querySelector('#tasks-container');
     list.textContent = '';
+
+    let newTaskButton = document.querySelector('#btn-new-task');
+    showElement(projectNameTitle);
+    showElement(newTaskButton);
+
     loadTasks(list, project);
   });
 
@@ -100,19 +107,21 @@ function loadTasks(list, project) {
 
 function deleteTask(project, task, node) {
   let index = project.findTask(task);
+  let projectNameTitle = document.querySelector('#project-name');
+  let newTaskButton = document.querySelector('#btn-new-task');
   project.tasks.splice(index, 1);
   node.remove();
-  //TODO: implement project deletion if the deleted task is the
-  //  last one on the project
-  if (project.tasks.length === 0) {
+  if (project.tasks.length === 0 && project.name != 'Main') {
     document.querySelectorAll('.project').forEach((element) => {
       if (element.textContent === project.name) element.remove();
     });
+    hideElement(projectNameTitle);
+    hideElement(newTaskButton);
     deleteProject(project);
   }
 }
 
-function getCurrentProject(projects, name) {
+function findProject(projects, name) {
   for (let project of projects) {
     if (project.name === name) return project;
   }
@@ -152,12 +161,24 @@ function closeModal(modal) {
   modal.classList.remove('show');
 }
 
+function toggleElementVisibility(element) {
+  element.classList.toggle('hidden');
+}
+
+function showElement(element) {
+  element.classList.remove('hidden');
+}
+
+function hideElement(element) {
+  element.classList.add('hidden');
+}
+
 export {
   addProject,
   addTask,
   loadProjects,
   loadTasks,
-  getCurrentProject,
+  findProject,
   displayCreateModal,
   closeModal,
 };
