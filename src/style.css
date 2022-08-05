@@ -122,3 +122,43 @@ body {
 .task[data-priority='High'] {
   background-color: rgb(238, 188, 188);
 }
+
+.modal-info-container,
+.modal-edit-container,
+.modal-create-container {
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease, opacity 1ms;
+}
+
+.modal-info-container.show,
+.modal-edit-container.show,
+.modal-create-container.show {
+  opacity: 1;
+  background-color: rgba(192, 192, 192, 0.5);
+  pointer-events: auto;
+}
+
+.modal-info,
+.modal-edit,
+.modal-create {
+  background-color: white;
+  width: 50vw;
+  padding: 50px 70px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.modal-info,
+.modal-edit,
+.modal-create h1 {
+  margin: 0;
+}
