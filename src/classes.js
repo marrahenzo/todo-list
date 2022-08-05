@@ -42,10 +42,4 @@ class Project {
   }
 }
 
-const Priority = Object.freeze({
-  High: 'High',
-  Medium: 'Medium',
-  Low: 'Low',
-});
-
-export { Task, Project, Priority };
+export { Task, Project };
