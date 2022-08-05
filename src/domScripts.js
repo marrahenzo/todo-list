@@ -1,4 +1,4 @@
-import { deleteProject } from './index';
+import { deleteProject, prepareEditModal } from './index';
 
 function addProject(list, project, id) {
   let projectElement = document.createElement('a');
@@ -86,7 +86,7 @@ function addTask(list, project, task) {
   });
 
   taskEditButton.addEventListener('click', () => {
-    displayEditModal(task);
+    displayEditModal(project, task);
   });
 
   taskDeleteButton.addEventListener('click', () => {
@@ -151,14 +151,19 @@ function displayInfoModal(task) {
   });
 }
 
-function displayEditModal(task) {
+function displayEditModal(project, task) {
   let modal = document.querySelector('.modal-edit-container');
   let closeButton = document.querySelectorAll('.modal-close')[1];
-  closeButton.id = JSON.stringify(task);
-  document.querySelector('#edit-title').value = task.name;
-  document.querySelector('#edit-description').value = task.description;
-  document.querySelector('#edit-due-date').value = task.dueDate;
-  document.querySelector('#edit-priority').value = task.priority;
+  let editTitle = document.querySelector('#edit-title');
+  editTitle.value = task.name;
+  let editDescription = document.querySelector('#edit-description');
+  editDescription.value = task.description;
+  let editDueDate = document.querySelector('#edit-due-date');
+  editDueDate.value = task.dueDate;
+  let editPriority = document.querySelector('#edit-priority');
+  editPriority.value = task.priority;
+
+  prepareEditModal(project, task);
 
   modal.classList.add('show');
 
@@ -170,10 +175,18 @@ function displayEditModal(task) {
 function displayCreateModal() {
   let modal = document.querySelector('.modal-create-container');
   let closeButton = document.querySelectorAll('.modal-close')[2];
+  let createTitle = document.querySelector('#create-title');
+  let createDescription = document.querySelector('#create-description');
+  let createDueDate = document.querySelector('#create-due-date');
+  let createPriority = document.querySelector('#create-priority');
 
   modal.classList.add('show');
 
   closeButton.addEventListener('click', () => {
+    createTitle.value = '';
+    createDescription.value = '';
+    createDueDate.value = '';
+    createPriority.value = 'Low';
     closeModal(modal);
   });
 }
