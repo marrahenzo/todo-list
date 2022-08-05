@@ -4,21 +4,22 @@ import {
   addTask,
   loadProjects,
   loadTasks,
-  getCurrentProject,
+  findProject,
   displayCreateModal,
   closeModal,
 } from './domScripts';
 import { Task, Project } from './classes';
 
 export function deleteProject(project) {
-  let index = findProject(project);
+  let index = findProjectIndex(projects, project);
   projects.splice(index, 1);
 }
 
-function findProject(projects, project) {
+function findProjectIndex(projects, project) {
   for (let i = 0; i < projects.length; i++) {
     if (projects[i].name === project.name) return i;
   }
+  return -1;
 }
 
 let projects = [];
@@ -49,7 +50,7 @@ let dueDate = document.querySelector('#create-due-date');
 let priority = document.querySelector('#create-priority');
 modalSubmit.forEach((button) => {
   button.addEventListener('click', () => {
-    let currentProject = getCurrentProject(projects, projectTitle.textContent);
+    let currentProject = findProject(projects, projectTitle.textContent);
     let newTask = new Task(
       title.value,
       description.value,
@@ -78,7 +79,7 @@ newProjectButton.addEventListener('click', () => {
 
 newTaskButton.addEventListener('click', () => {
   let projectName = document.querySelector('#project-name').textContent;
-  let currentProject = getCurrentProject(projects, projectName);
+  let currentProject = findProject(projects, projectName);
 
   displayCreateModal();
 });
