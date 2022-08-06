@@ -111,9 +111,12 @@ function editTask() {
 // and appends it to the dom
 
 newProjectButton.addEventListener('click', () => {
-  let newProject = new Project(
-    prompt('Enter a name for the new project', 'Project')
-  );
+  let newProject;
+  do {
+    newProject = new Project(
+      prompt('Enter a name for the new project', 'Project')
+    );
+  } while (newProject.name === '' || newProject.name === undefined);
   projects.push(newProject);
 
   addProject(projectList, newProject, projects.length);
