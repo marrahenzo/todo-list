@@ -31,11 +31,9 @@ function findTaskIndex(project, task) {
 
 let projects = [];
 
-//TODO: Remove later
 projects.push(new Project('Main'));
 let testTask = new Task('Hello, world!', 'This is a test', '2022-08-05', 'Low');
 projects[0].addTask(testTask);
-//
 
 const projectList = document.querySelector('#projects-container');
 loadProjects(projectList, projects);
