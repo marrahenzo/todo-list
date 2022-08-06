@@ -14,10 +14,9 @@ class Task {
 }
 
 class Project {
-  tasks = [];
-
-  constructor(name) {
+  constructor(name, tasks = []) {
     this.name = name;
+    this.tasks = tasks;
   }
 
   get name() {
@@ -33,7 +32,7 @@ class Project {
   }
 
   removeTask(task) {
-    tasks[this.findTask(task)];
+    this.tasks[this.findTask(task)];
   }
 
   findTask(task) {
