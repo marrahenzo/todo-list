@@ -50,7 +50,6 @@ function addTask(list, project, task) {
   taskDate.className = 'task-date';
   if (task.dueDate === '') task.dueDate = format(new Date(), 'yyyy-MM-dd');
   taskDate.textContent = format(parseISO(task.dueDate), 'MMM do');
-  task.dueDate = format(parseISO(task.dueDate), 'MMMM do, yyyy');
 
   let taskInfoButton = document.createElement('a');
   taskInfoButton.className = 'task-info';
@@ -160,7 +159,8 @@ function displayInfoModal(task) {
 
   title.textContent = task.name;
   description.textContent = task.description;
-  dueDate.textContent = 'Due: ' + task.dueDate;
+  dueDate.textContent =
+    'Due: ' + format(parseISO(task.dueDate), 'MMMM do, yyyy');
   priority.textContent = 'Priority: ' + task.priority;
   modal.classList.add('show');
 
