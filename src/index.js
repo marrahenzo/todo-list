@@ -34,10 +34,23 @@ function findTaskIndex(project, task) {
 
 let projects = [];
 
+//Save data to localStorage
+
+export function saveLocalStorage() {
+  localStorage.setItem('projects', JSON.stringify(projects));
+}
+
+//Load data from localStorage if exists
+
+if (localStorage.length > 0) {
+  projects = JSON.parse(localStorage.getItem('projects'));
+  console.log(projects);
+}
+
 //Dummy project and task
 projects.push(new Project('Main'));
 let testTask = new Task('Hello, world!', 'This is a test', '2022-08-05', 'Low');
-projects[0].addTask(testTask);
+projects[0].tasks.push(testTask);
 
 //Get project and task list DOM elements and fill them with the available data
 const projectList = document.querySelector('#projects-container');
@@ -70,6 +83,7 @@ modalCreateSubmit.addEventListener('click', () => {
     createPriority.value
   );
   currentProject.tasks.push(newTask);
+  saveLocalStorage();
   addTask(taskList, currentProject, newTask);
   closeModal(modalCreateContainer);
   createTitle.value = '';
@@ -124,6 +138,7 @@ newProjectButton.addEventListener('click', () => {
     );
   } while (newProject.name === '' || newProject.name === undefined);
   projects.push(newProject);
+  saveLocalStorage();
 
   addProject(projectList, newProject, projects.length);
 });
@@ -131,7 +146,5 @@ newProjectButton.addEventListener('click', () => {
 //If clicked, calls the task creation modal
 
 newTaskButton.addEventListener('click', () => {
-  let projectName = document.querySelector('#project-name').textContent;
-
   displayCreateModal();
 });
