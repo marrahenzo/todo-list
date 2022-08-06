@@ -1,5 +1,5 @@
 import { deleteProject, prepareEditModal } from './index';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 
 function addProject(list, project, id) {
   let projectElement = document.createElement('a');
@@ -42,7 +42,7 @@ function addTask(list, project, task) {
 
   let taskDate = document.createElement('p');
   taskDate.className = 'task-date';
-  taskDate.textContent = format(new Date(task.dueDate), 'MMM do');
+  taskDate.textContent = format(parseISO(task.dueDate), 'MMM do');
 
   let taskInfoButton = document.createElement('a');
   taskInfoButton.className = 'task-info';
