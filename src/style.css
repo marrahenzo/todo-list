@@ -4,7 +4,7 @@ body,
 html {
   margin: 0;
   padding: 0;
-  height: 100%;
+  min-height: 100vh;
   --main-color: rgb(81, 127, 255);
 }
 
@@ -13,9 +13,10 @@ html {
 }
 
 #main-container {
+  height: 100vh;
   display: grid;
   grid-template-columns: 0.4fr 1fr;
-  grid-template-rows: 60px calc(100vh - 60px);
+  grid-template-rows: 60px calc(100vh - 97px);
 }
 
 #navbar {
@@ -269,4 +270,25 @@ html {
 .modal-edit select,
 .modal-create select {
   font-size: 20px;
+}
+
+footer {
+  position: fixed;
+  background-color: var(--main-color);
+  display: flex;
+  font-size: 20px;
+  font-family: 'Roboto', sans-serif;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  bottom: 0;
+}
+
+footer #credits-logo {
+  margin-left: 10px;
+  transition: all 0.3s ease;
+}
+
+footer #credits-logo:hover {
+  transform: rotateZ(360deg);
 }
