@@ -1,4 +1,4 @@
-import { deleteProject, prepareEditModal } from './index';
+import { deleteProject, prepareEditModal, saveLocalStorage } from './index';
 import { format, parseISO } from 'date-fns';
 
 //Adds given project to DOM
@@ -129,6 +129,7 @@ function deleteTask(project, task, node) {
   let newTaskButton = document.querySelector('#btn-new-task');
   project.tasks.splice(index, 1);
   node.remove();
+  saveLocalStorage();
   if (project.tasks.length === 0 && project.name != 'Main') {
     document.querySelectorAll('.project').forEach((element) => {
       if (element.textContent === project.name) element.remove();
