@@ -42,6 +42,8 @@ function addTask(list, project, task) {
 
   let taskDate = document.createElement('p');
   taskDate.className = 'task-date';
+  if (task.dueDate === '') task.dueDate = format(new Date(), 'yyyy-MM-dd');
+  console.log(task.dueDate);
   taskDate.textContent = format(parseISO(task.dueDate), 'MMM do');
 
   let taskInfoButton = document.createElement('a');
