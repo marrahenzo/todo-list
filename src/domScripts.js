@@ -1,6 +1,8 @@
 import { deleteProject, prepareEditModal } from './index';
 import { format, parseISO } from 'date-fns';
 
+//Adds given project to DOM
+
 function addProject(list, project, id) {
   let projectElement = document.createElement('a');
   projectElement.href = '#';
@@ -25,11 +27,15 @@ function addProject(list, project, id) {
   list.append(projectElement);
 }
 
+//Loads projects from projects array into DOM
+
 function loadProjects(list, projects) {
   for (let project of projects) {
     addProject(list, project, projects.length);
   }
 }
+
+//Adds given task to DOM
 
 function addTask(list, project, task) {
   let taskElement = document.createElement('div');
@@ -107,11 +113,16 @@ function addTask(list, project, task) {
   list.append(taskElement);
 }
 
+//Loads all available tasks in project into DOM
+
 function loadTasks(list, project) {
   for (let task of project.tasks) {
     addTask(list, project, task);
   }
 }
+
+//Removes task from DOM and from project task array, and delete
+// the project if there are no tasks left
 
 function deleteTask(project, task, node) {
   let index = project.findTask(task);
@@ -129,11 +140,15 @@ function deleteTask(project, task, node) {
   }
 }
 
+//Returns the project that has the provided name
+
 function findProject(projects, name) {
   for (let project of projects) {
     if (project.name === name) return project;
   }
 }
+
+//Displays a modal with info from the selected task
 
 function displayInfoModal(task) {
   let modal = document.querySelector('.modal-info-container');
@@ -153,6 +168,8 @@ function displayInfoModal(task) {
     closeModal(modal);
   });
 }
+
+//Displays a modal with a form to edit the selected task
 
 function displayEditModal(project, task) {
   let modal = document.querySelector('.modal-edit-container');
@@ -175,6 +192,8 @@ function displayEditModal(project, task) {
   });
 }
 
+//Displays a modal to create a task
+
 function displayCreateModal() {
   let modal = document.querySelector('.modal-create-container');
   let closeButton = document.querySelectorAll('.modal-close')[2];
@@ -194,12 +213,10 @@ function displayCreateModal() {
   });
 }
 
+//Self-explanatory stuff
+
 function closeModal(modal) {
   modal.classList.remove('show');
-}
-
-function toggleElementVisibility(element) {
-  element.classList.toggle('hidden');
 }
 
 function showElement(element) {

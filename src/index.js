@@ -10,11 +10,13 @@ import {
 } from './domScripts';
 import { Task, Project } from './classes';
 
+//Removes project from array
 export function deleteProject(project) {
   let index = findProjectIndex(projects, project);
   projects.splice(index, 1);
 }
 
+//Returns the index of the provided project
 function findProjectIndex(projects, project) {
   for (let i = 0; i < projects.length; i++) {
     if (projects[i].name === project.name) return i;
@@ -22,6 +24,7 @@ function findProjectIndex(projects, project) {
   return -1;
 }
 
+//Returns the index of the task from the tasks array in the provided project
 function findTaskIndex(project, task) {
   for (let i = 0; i < project.tasks.length; i++) {
     if (JSON.stringify(project.tasks[i]) === JSON.stringify(task)) return i;
@@ -31,10 +34,12 @@ function findTaskIndex(project, task) {
 
 let projects = [];
 
+//Dummy project and task
 projects.push(new Project('Main'));
 let testTask = new Task('Hello, world!', 'This is a test', '2022-08-05', 'Low');
 projects[0].addTask(testTask);
 
+//Get project and task list DOM elements and fill them with the available data
 const projectList = document.querySelector('#projects-container');
 loadProjects(projectList, projects);
 
@@ -48,7 +53,8 @@ let newTaskButton = document.querySelector('#btn-new-task');
 
 let projectTitle = document.querySelector('#project-name');
 
-//Task creation
+//Takes data from the form, creates a task, pushes it into the tasks array
+//of its respective project and creates a new task in the DOM
 let modalCreateContainer = document.querySelector('.modal-create-container');
 let modalCreateSubmit = document.querySelectorAll('.modal-submit')[1];
 let createTitle = document.querySelector('#create-title');
@@ -72,7 +78,7 @@ modalCreateSubmit.addEventListener('click', () => {
   createPriority.value = 'Low';
 });
 
-//Task editing
+//Sends project and task to submit button in edit form
 
 let modalEditSubmit = document.querySelectorAll('.modal-submit')[0];
 let editModalProject, editModalTask;
@@ -82,6 +88,9 @@ export function prepareEditModal(project, task) {
   editModalProject = project;
   editModalTask = task;
 }
+
+//Takes data from form, creates a new task, pushes into the tasks array
+//of its respective project and refreshes de task DOM list
 
 function editTask() {
   let modalEditContainer = document.querySelector('.modal-edit-container');
@@ -99,7 +108,6 @@ function editTask() {
   );
 
   editModalProject.tasks[taskIndex] = newTask;
-  console.log(editModalProject.tasks);
   closeModal(modalEditContainer);
   taskList.textContent = '';
   loadTasks(taskList, editModalProject);
@@ -120,11 +128,10 @@ newProjectButton.addEventListener('click', () => {
   addProject(projectList, newProject, projects.length);
 });
 
-//If clicked, creates a new (dummy) task and appends it to the dom
+//If clicked, calls the task creation modal
 
 newTaskButton.addEventListener('click', () => {
   let projectName = document.querySelector('#project-name').textContent;
-  let currentProject = findProject(projects, projectName);
 
   displayCreateModal();
 });
