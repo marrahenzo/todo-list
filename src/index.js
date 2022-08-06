@@ -14,6 +14,7 @@ import { Task, Project } from './classes';
 export function deleteProject(project) {
   let index = findProjectIndex(projects, project);
   projects.splice(index, 1);
+  saveLocalStorage();
 }
 
 //Returns the index of the provided project
@@ -41,16 +42,24 @@ export function saveLocalStorage() {
 }
 
 //Load data from localStorage if exists
+//If not, load a dummy project and task
 
 if (localStorage.length > 0) {
-  projects = JSON.parse(localStorage.getItem('projects'));
-  console.log(projects);
+  let savedProjects = JSON.parse(localStorage.getItem('projects'));
+  for (let project of savedProjects) {
+    let newProject = new Project(project._name, project.tasks);
+    projects.push(newProject);
+  }
+} else {
+  projects.push(new Project('Main'));
+  let testTask = new Task(
+    'Hello, world!',
+    'This is a test',
+    '2022-08-05',
+    'Low'
+  );
+  projects[0].tasks.push(testTask);
 }
-
-//Dummy project and task
-projects.push(new Project('Main'));
-let testTask = new Task('Hello, world!', 'This is a test', '2022-08-05', 'Low');
-projects[0].tasks.push(testTask);
 
 //Get project and task list DOM elements and fill them with the available data
 const projectList = document.querySelector('#projects-container');
@@ -122,6 +131,7 @@ function editTask() {
   );
 
   editModalProject.tasks[taskIndex] = newTask;
+  saveLocalStorage();
   closeModal(modalEditContainer);
   taskList.textContent = '';
   loadTasks(taskList, editModalProject);
